@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2\exerciseG1\draw2d\surface.inl(15,83): warning C4100: “aColor”: 未引用的形参
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2\exerciseG1\draw2d\surface.inl(36,68): warning C4100: “aY”: 未引用的形参
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2\exerciseG1\draw2d\surface.inl(36,52): warning C4100: “aX”: 未引用的形参
+  exercise1.vcxproj -> C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2\exerciseG1\bin\exercise1-debug-x64-msc-v143.exe
