@@ -1,4 +1,0 @@
-﻿  main.cpp
-C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\third_party\glm\detail\type_quat.hpp(48,30): warning C4201: 使用了非标准扩展: 无名称的结构/联合
-C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\third_party\glm\detail\type_quat.hpp(138): message : 查看对正在编译的 类 模板 实例化“glm::qua<T,Q>”的引用
-  exercise2.vcxproj -> C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\bin\exercise2-debug-x64-msc-v143.exe
