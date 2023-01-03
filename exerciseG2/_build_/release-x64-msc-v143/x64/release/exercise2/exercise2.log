@@ -1,0 +1,11 @@
+﻿  main.cpp
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\third_party\glm\detail\type_quat.hpp(48,30): warning C4201: 使用了非标准扩展: 无名称的结构/联合
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\third_party\glm\detail\type_quat.hpp(138): message : 查看对正在编译的 类 模板 实例化“glm::qua<T,Q>”的引用
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(388,18): warning C4456: “angle”的声明隐藏了上一个本地声明
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(315,8): message : 参见“angle”的声明
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(388,10): warning C4189: “angle”: 局部变量已初始化但不引用
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(510,44): warning C4100: “window”: 未引用的形参
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(519,33): warning C4100: “window”: 未引用的形参
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(558,49): warning C4100: “xoffset”: 未引用的形参
+C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\exercise2\main.cpp(558,34): warning C4100: “window”: 未引用的形参
+  exercise2.vcxproj -> C:\Users\11195\OneDrive - University of Leeds\Desktop\year4\ComputerGraphics\cw2-main\computerGraphics\exerciseG2\bin\exercise2-release-x64-msc-v143.exe
