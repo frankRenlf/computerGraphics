@@ -95,7 +95,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="box.h" />
+    <ClInclude Include="camera.h" />
     <ClInclude Include="defaults.hpp" />
+    <ClInclude Include="model.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="skybox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
