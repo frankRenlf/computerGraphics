@@ -22,8 +22,12 @@
 #include "defaults.hpp"
 #include "camera.h"
 #include "shader.h"
+//#include "model.h"
+
 #include <iostream>
 #include <stb_image.h>
+#include <string>
+#include <fstream>
 using namespace std;
 
 
@@ -44,6 +48,8 @@ unsigned int loadCubemap(vector<std::string> faces);
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+// actions
+float movebox = 1.0f;
 
 // camera
 //glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -238,12 +244,14 @@ int main() try
 		glm::vec3(2.0f,  2.0f, 2.0f),
 		glm::vec3(3.0f,  3.0,  3.0f),
 		glm::vec3(4.0f,  4.0f, 4.0f),
+		glm::vec3(3.0f,  -3.0,  3.0f),
+		glm::vec3(4.0f,  -4.0f, 4.0f),
 	};
 	// positions of the point lights
 	glm::vec3 pointLightPositions[] = {
 		glm::vec3(0.7f,  0.2f,  2.0f),
 		glm::vec3(2.3f, -3.3f, -4.0f),
-		glm::vec3(-4.0f,  2.0f, -12.0f),
+		glm::vec3(-7.0f,  1.0f, -7.0f),
 		glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 	// first, configure the cube's VAO (and VBO)
@@ -275,7 +283,7 @@ int main() try
 	// load textures (we now use a utility function to keep the code more organized)
 	// -----------------------------------------------------------------------------
 	unsigned int diffuseMap = loadTexture("assets/wall.jpg");
-	unsigned int specularMap = loadTexture("assets/awesomeface.png");
+	unsigned int specularMap = loadTexture("assets/Chongshou.png");
 
 	// shader configuration
 	// --------------------
@@ -471,16 +479,256 @@ int main() try
 	};
 	// world space positions of our cubes
 	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
+		//
+		glm::vec3(-5.0f,  -5.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -5.0f, -6.0f),
+		glm::vec3(-5.0f,  -5.0f,  -7.0f),
+		glm::vec3(-5.0f,  -5.0f, -8.0f),//
+
+		glm::vec3(-6.0f,  -5.0f, -5.0f),
+		glm::vec3(-7.0f,  -5.0f, -5.0f),
+		glm::vec3(-8.0f,  -5.0f, -5.0f),//
+
+		glm::vec3(-5.0f,  -6.0f, -5.0f),
+		glm::vec3(-5.0f,  -7.0f, -5.0f),
+		glm::vec3(-5.0f,  -8.0f, -5.0f),//
+		//
+		glm::vec3(-5.0f,  -5.0f,  -9.0f),
+
+		glm::vec3(-6.0f,  -5.0f, -9.0f),
+		glm::vec3(-7.0f,  -5.0f,  -9.0f),
+		glm::vec3(-8.0f,  -5.0f, -9.0f),
+
+		glm::vec3(-5.0f,  -6.0f, -9.0f),
+		glm::vec3(-5.0f,  -7.0f,  -9.0f),
+		glm::vec3(-5.0f,  -8.0f, -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -5.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -5.0f, -8.0f),
+		glm::vec3(-9.0f,  -5.0f,  -7.0f),
+		glm::vec3(-9.0f,  -5.0f, -6.0f),
+
+		glm::vec3(-9.0f,  -6.0f,  -9.0f),
+		glm::vec3(-9.0f,  -7.0f,  -9.0f),
+		glm::vec3(-9.0f,  -8.0f,  -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -9.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -9.0f,  -8.0f),
+		glm::vec3(-9.0f,  -9.0f,  -7.0f),
+		glm::vec3(-9.0f,  -9.0f,  -6.0f),
+
+		glm::vec3(-8.0f,  -9.0f,  -9.0f),
+		glm::vec3(-7.0f,  -9.0f,  -9.0f),
+		glm::vec3(-6.0f,  -9.0f,  -9.0f),
+		//
+		glm::vec3(-9.0f,  -9.0f,  -5.0f),
+
+		glm::vec3(-9.0f,  -8.0f,  -5.0f),
+		glm::vec3(-9.0f,  -7.0f,  -5.0f),
+		glm::vec3(-9.0f,  -6.0f,  -5.0f),
+		glm::vec3(-9.0f,  -5.0f,  -5.0f),
+
+		glm::vec3(-8.0f,  -9.0f,  -5.0f),
+		glm::vec3(-7.0f,  -9.0f,  -5.0f),
+		glm::vec3(-6.0f,  -9.0f,  -5.0f),
+		//
+		glm::vec3(-5.0f,  -9.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -8.0f,  -5.0f),
+		glm::vec3(-5.0f,  -7.0f,  -5.0f),
+		glm::vec3(-5.0f,  -6.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -9.0f,  -6.0f),
+		glm::vec3(-5.0f,  -9.0f,  -7.0f),
+		glm::vec3(-5.0f,  -9.0f,  -8.0f),
+		glm::vec3(-5.0f,  -9.0f,  -9.0f),
+		//
+		glm::vec3(-6.0f,  -9.0f,  -6.0f),
+		glm::vec3(-6.0f,  -9.0f,  -7.0f),
+		glm::vec3(-6.0f,  -9.0f,  -8.0f),
+		glm::vec3(-7.0f,  -9.0f,  -6.0f),
+		glm::vec3(-7.0f,  -9.0f,  -7.0f),
+		glm::vec3(-7.0f,  -9.0f,  -8.0f),
+		glm::vec3(-8.0f,  -9.0f,  -6.0f),
+		glm::vec3(-8.0f,  -9.0f,  -7.0f),
+		glm::vec3(-8.0f,  -9.0f,  -8.0f),
+		//		//
+		glm::vec3(-6.0f,  -4.0f,  -6.0f),//
+		glm::vec3(-6.0f,  -4.0f,  -7.0f),//
+		glm::vec3(-6.0f,  -4.0f,  -8.0f),//
+		glm::vec3(-7.0f,  -4.0f,  -6.0f),
+		glm::vec3(-7.0f,  -3.0f,  -7.0f),
+		glm::vec3(-7.0f,  -4.0f,  -8.0f),
+		glm::vec3(-8.0f,  -4.0f,  -6.0f),//
+		glm::vec3(-8.0f,  -4.0f,  -7.0f),//
+		glm::vec3(-8.0f,  -4.0f,  -8.0f),//
+		//
+		glm::vec3(-7.0f,  -2.0f,  -7.0f),
+		glm::vec3(-7.0f,  -1.0f,  -7.0f),
+		glm::vec3(-7.0f,  -0.0f,  -7.0f),
+		glm::vec3(-6.0f,  -1.0f,  -7.0f),
+		glm::vec3(-8.0f,  -1.0f,  -7.0f),
+		/////
+		glm::vec3(-5.0f,  -10.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -10.0f, -6.0f),
+		glm::vec3(-5.0f,  -10.0f,  -7.0f),
+		glm::vec3(-5.0f,  -10.0f, -8.0f),//
+
+		glm::vec3(-6.0f,  -10.0f, -5.0f),
+		glm::vec3(-7.0f,  -10.0f, -5.0f),
+		glm::vec3(-8.0f,  -10.0f, -5.0f),//
+
+		glm::vec3(-5.0f,  -11.0f, -5.0f),
+		glm::vec3(-5.0f,  -12.0f, -5.0f),
+		glm::vec3(-5.0f,  -13.0f, -5.0f),//
+		//
+		glm::vec3(-5.0f,  -10.0f,  -9.0f),
+
+		glm::vec3(-6.0f,  -10.0f, -9.0f),
+		glm::vec3(-7.0f,  -10.0f,  -9.0f),
+		glm::vec3(-8.0f,  -10.0f, -9.0f),
+
+		glm::vec3(-5.0f,  -11.0f, -9.0f),
+		glm::vec3(-5.0f,  -12.0f,  -9.0f),
+		glm::vec3(-5.0f,  -13.0f, -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -10.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -10.0f, -8.0f),
+		glm::vec3(-9.0f,  -10.0f,  -7.0f),
+		glm::vec3(-9.0f,  -10.0f, -6.0f),
+
+		glm::vec3(-9.0f,  -11.0f,  -9.0f),
+		glm::vec3(-9.0f,  -12.0f,  -9.0f),
+		glm::vec3(-9.0f,  -13.0f,  -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -14.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -14.0f,  -8.0f),
+		glm::vec3(-9.0f,  -14.0f,  -7.0f),
+		glm::vec3(-9.0f,  -14.0f,  -6.0f),
+
+		glm::vec3(-8.0f,  -14.0f,  -9.0f),
+		glm::vec3(-7.0f,  -14.0f,  -9.0f),
+		glm::vec3(-6.0f,  -14.0f,  -9.0f),
+		//
+		glm::vec3(-9.0f,  -14.0f,  -5.0f),
+
+		glm::vec3(-9.0f,  -13.0f,  -5.0f),
+		glm::vec3(-9.0f,  -12.0f,  -5.0f),
+		glm::vec3(-9.0f,  -11.0f,  -5.0f),
+		glm::vec3(-9.0f,  -10.0f,  -5.0f),
+
+		glm::vec3(-8.0f,  -14.0f,  -5.0f),
+		glm::vec3(-7.0f,  -14.0f,  -5.0f),
+		glm::vec3(-6.0f,  -14.0f,  -5.0f),
+		//
+		glm::vec3(-5.0f,  -14.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -13.0f,  -5.0f),
+		glm::vec3(-5.0f,  -12.0f,  -5.0f),
+		glm::vec3(-5.0f,  -11.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -14.0f,  -6.0f),
+		glm::vec3(-5.0f,  -14.0f,  -7.0f),
+		glm::vec3(-5.0f,  -14.0f,  -8.0f),
+		glm::vec3(-5.0f,  -14.0f,  -9.0f),
+		//
+		glm::vec3(-6.0f,  -14.0f,  -6.0f),
+		glm::vec3(-6.0f,  -14.0f,  -7.0f),
+		glm::vec3(-6.0f,  -14.0f,  -8.0f),
+		glm::vec3(-7.0f,  -14.0f,  -6.0f),
+		glm::vec3(-7.0f,  -14.0f,  -7.0f),
+		glm::vec3(-7.0f,  -14.0f,  -8.0f),
+		glm::vec3(-8.0f,  -14.0f,  -6.0f),
+		glm::vec3(-8.0f,  -14.0f,  -7.0f),
+		glm::vec3(-8.0f,  -14.0f,  -8.0f),
+		//////
+		glm::vec3(-5.0f,  -15.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -15.0f, -6.0f),
+		glm::vec3(-5.0f,  -15.0f,  -7.0f),
+		glm::vec3(-5.0f,  -15.0f, -8.0f),//
+
+		glm::vec3(-6.0f,  -15.0f, -5.0f),
+		glm::vec3(-7.0f,  -15.0f, -5.0f),
+		glm::vec3(-8.0f,  -15.0f, -5.0f),//
+
+		glm::vec3(-5.0f,  -16.0f, -5.0f),
+		glm::vec3(-5.0f,  -17.0f, -5.0f),
+		glm::vec3(-5.0f,  -18.0f, -5.0f),//
+		//
+		glm::vec3(-5.0f,  -15.0f,  -9.0f),
+
+		glm::vec3(-6.0f,  -15.0f, -9.0f),
+		glm::vec3(-7.0f,  -15.0f,  -9.0f),
+		glm::vec3(-8.0f,  -15.0f, -9.0f),
+
+		glm::vec3(-5.0f,  -16.0f, -9.0f),
+		glm::vec3(-5.0f,  -17.0f,  -9.0f),
+		glm::vec3(-5.0f,  -18.0f, -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -15.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -15.0f, -8.0f),
+		glm::vec3(-9.0f,  -15.0f,  -7.0f),
+		glm::vec3(-9.0f,  -15.0f, -6.0f),
+
+		glm::vec3(-9.0f,  -16.0f,  -9.0f),
+		glm::vec3(-9.0f,  -17.0f,  -9.0f),
+		glm::vec3(-9.0f,  -18.0f,  -9.0f),
+
+		//
+		glm::vec3(-9.0f,  -19.0f,  -9.0f),
+
+		glm::vec3(-9.0f,  -19.0f,  -8.0f),
+		glm::vec3(-9.0f,  -19.0f,  -7.0f),
+		glm::vec3(-9.0f,  -19.0f,  -6.0f),
+
+		glm::vec3(-8.0f,  -19.0f,  -9.0f),
+		glm::vec3(-7.0f,  -19.0f,  -9.0f),
+		glm::vec3(-6.0f,  -19.0f,  -9.0f),
+		//
+		glm::vec3(-9.0f,  -19.0f,  -5.0f),
+
+		glm::vec3(-9.0f,  -18.0f,  -5.0f),
+		glm::vec3(-9.0f,  -17.0f,  -5.0f),
+		glm::vec3(-9.0f,  -16.0f,  -5.0f),
+		glm::vec3(-9.0f,  -15.0f,  -5.0f),
+
+		glm::vec3(-8.0f,  -19.0f,  -5.0f),
+		glm::vec3(-7.0f,  -19.0f,  -5.0f),
+		glm::vec3(-6.0f,  -19.0f,  -5.0f),
+		//
+		glm::vec3(-5.0f,  -19.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -18.0f,  -5.0f),
+		glm::vec3(-5.0f,  -17.0f,  -5.0f),
+		glm::vec3(-5.0f,  -16.0f,  -5.0f),
+
+		glm::vec3(-5.0f,  -19.0f,  -6.0f),
+		glm::vec3(-5.0f,  -19.0f,  -7.0f),
+		glm::vec3(-5.0f,  -19.0f,  -8.0f),
+		glm::vec3(-5.0f,  -19.0f,  -9.0f),
+		//
+		glm::vec3(-6.0f,  -19.0f,  -6.0f),
+		glm::vec3(-6.0f,  -19.0f,  -7.0f),
+		glm::vec3(-6.0f,  -19.0f,  -8.0f),
+		glm::vec3(-7.0f,  -19.0f,  -6.0f),
+		glm::vec3(-7.0f,  -19.0f,  -7.0f),
+		glm::vec3(-7.0f,  -19.0f,  -8.0f),
+		glm::vec3(-8.0f,  -19.0f,  -6.0f),
+		glm::vec3(-8.0f,  -19.0f,  -7.0f),
+		glm::vec3(-8.0f,  -19.0f,  -8.0f),
 	};
 	unsigned int VBO, VAO;
 	glGenVertexArrays(1, &VAO);
@@ -538,7 +786,7 @@ int main() try
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// load image, create texture and generate mipmaps
-	data = stbi_load("assets/awesomeface.png", &width, &height, &nrChannels, 0);
+	data = stbi_load("assets/Chongshou.png", &width, &height, &nrChannels, 0);
 	if (data)
 	{
 		// note that the awesomeface.png has transparency and thus an alpha channel, so make sure to tell OpenGL the data type is of GL_RGBA
@@ -558,7 +806,15 @@ int main() try
 	glUniform1i(glGetUniformLocation(prog.programId(), "texture2"), 1);
 	glEnable(GL_DEPTH_TEST);
 
+	// model
+	/*
+			// build and compile shaders
+	// -------------------------
+	Shader ourShaderModel("assets/model.vert", "assets/model.frag");
 
+	// load models
+	// -----------
+	Model ourModel("assets/nanosuit/backpack.obj");*/
 
 	// Animation state
 	auto last = Clock::now();
@@ -725,11 +981,32 @@ int main() try
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositionsLight[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
+			float ggt = (float)glfwGetTime() * 2;
+			model = glm::rotate(model, ggt, glm::vec3(1.0f, 0.3f, 0.5f));
 			lightingShader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
+
+		unsigned int diffuseMap2 = loadTexture("assets/container2.png");
+		lightingShader.use();
+		lightingShader.setInt("material.diffuse", 0);
+		// bind diffuse map
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap2);
+		for (unsigned int i = 4; i < 6; i++)
+		{
+			// calculate the model matrix for each object and pass it to shader before drawing
+			glm::mat4 model = glm::mat4(1.0f);
+			model = glm::translate(model, cubePositionsLight[i]);
+			float angle = 20.0f * i;
+			float ggt = (float)glfwGetTime() / 2;
+			model = glm::rotate(model, ggt, glm::vec3(1.0f, 0.3f, 0.5f));
+			lightingShader.setMat4("model", model);
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+
 		// bind diffuse map
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
@@ -742,11 +1019,21 @@ int main() try
 			glm::mat4 model = glm::mat4(1.0f);
 			model = glm::translate(model, cubePositionsLight[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
+			float ggt = (float)glfwGetTime() * movebox;
+
+			model = glm::rotate(model, ggt, glm::vec3(1.0f, 0.3f, 0.5f));
 			lightingShader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
+		// calculate the model matrix for each object and pass it to shader before drawing
+		glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+		model = glm::translate(model, glm::vec3(-7.0f, -7.0f, -7.0f));
+		model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
+		lightingShader.setMat4("model", model);
+
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
 		// also draw the lamp object(s)
 		lightCubeShader.use();
 		lightCubeShader.setMat4("projection", projectionLight);
@@ -767,13 +1054,32 @@ int main() try
 		// bind textures on corresponding texture units
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture1);
-		glActiveTexture(GL_TEXTURE1);
+		/*
+		* awesome face
+		* 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
+		*/
 
 
+		/*
+		* 		// don't forget to enable shader before setting uniforms
+		ourShaderModel.use();
 
+		// view/projection transformations
+		glm::mat4 projectionModel = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		glm::mat4 viewModel = camera.GetViewMatrix();
+		ourShaderModel.setMat4("projection", projectionModel);
+		ourShaderModel.setMat4("view", viewModel);
 
+		// render the loaded model
+		glm::mat4 modelM = glm::mat4(1.0f);
+		modelM = glm::translate(modelM, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+		modelM = glm::scale(modelM, glm::vec3(1.0f, 1.0f, 1.0f));     // it's a bit too big for our scene, so scale it down
+		ourShaderModel.setMat4("model", modelM);
+		ourModel.Draw(ourShaderModel);
+		*/
 
+		// bind diffuse map
 
 		glUseProgram(prog.programId());
 		// camera/view transformation
@@ -792,19 +1098,18 @@ int main() try
 
 		glBindVertexArray(VAO);
 
-		for (unsigned int i = 0; i < 10; i++)
+		for (unsigned int i = 0; i < 201; i++)
 		{
 			// calculate the model matrix for each object and pass it to shader before drawing
 			glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 			model = glm::translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
-			model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
+			//model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 0.3f, 0.5f));
 			unsigned int modelLoc = glGetUniformLocation(prog.programId(), "model");
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
-
 
 		// skybox
 		glBindVertexArray(0);
@@ -896,6 +1201,16 @@ void processInput(GLFWwindow* window)
 		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
+
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+		movebox = 2.0f;
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+		movebox = 0.5f;
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+		movebox = 0.0f;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+		movebox = 1.0f;
 }
 /*
 * void processInput(GLFWwindow* window)

@@ -98,6 +98,7 @@
     <ClInclude Include="box.h" />
     <ClInclude Include="camera.h" />
     <ClInclude Include="defaults.hpp" />
+    <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
     <ClInclude Include="skybox.h" />

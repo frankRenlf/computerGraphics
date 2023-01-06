@@ -54,6 +54,8 @@
     <None Include="lc.vert" />
     <None Include="ml.frag" />
     <None Include="ml.vert" />
+    <None Include="model.frag" />
+    <None Include="model.vert" />
     <None Include="modulate.frag" />
     <None Include="passthrough.vert" />
     <None Include="skybox.frag" />
